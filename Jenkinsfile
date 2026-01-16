@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     tools {
-        jdk 'Java17'          
-        maven 'Maven-home'    
+        jdk 'Java17'          // Jenkins global JDK tool
+        maven 'Maven-home'    // Jenkins global Maven tool
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 echo 'Pulling from Github'
-                git branch: 'main', credentialsId: 'Git-Cred', url: 'https://github.com/aravindwip/sprjen.git'
+                git branch: 'main', credentialsId: 'mygithubcred', url: 'https://github.com/aravindwip/wipjen.git'
             }
         }
 
@@ -47,7 +47,7 @@ pipeline {
                 echo 'Running Spring Boot Application in Docker'
                 bat '''
                 docker rm -f springboot-app-container || exit 0
-                docker run --name springboot-app-container springboot-app:1.0
+                docker run -d -p 8080:8080 --name springboot-app-container springboot-app:1.0
                 '''
             }
         }
@@ -55,7 +55,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build and Run SUCCESSFUL! 
+            echo 'Build and Run SUCCESSFUL! Access app at http://localhost:8080/hello'
         }
         failure {
             echo 'OOPS!!! Build or Run failed.'
