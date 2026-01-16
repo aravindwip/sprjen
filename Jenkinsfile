@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     tools {
-        jdk 'Java17'          // Jenkins global JDK tool
-        maven 'Maven-home'    // Jenkins global Maven tool
+        jdk 'Java17'          
+        maven 'Maven-home'    
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 echo 'Pulling from Github'
-                git branch: 'main', credentialsId: 'mygithubcred', url: 'https://github.com/aravindwip/wipjen.git'
+                git branch: 'main', credentialsId: 'Git-Cred', url: 'https://github.com/aravindwip/sprjen.git'
             }
         }
 
