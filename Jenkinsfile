@@ -47,7 +47,7 @@ pipeline {
                 echo 'Running Spring Boot Application in Docker'
                 bat '''
                 docker rm -f springboot-app-container || exit 0
-                docker run -d -p 8080:8080 --name springboot-app-container springboot-app:1.0
+                docker run --name springboot-app-container springboot-app:1.0
                 '''
             }
         }
@@ -55,7 +55,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build and Run SUCCESSFUL! Access app at http://localhost:8080/hello'
+            echo 'Build and Run SUCCESSFUL! 
         }
         failure {
             echo 'OOPS!!! Build or Run failed.'
