@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     tools {
-        jdk 'Java17'          // Jenkins global JDK tool
-        maven 'Maven-home'    // Jenkins global Maven tool
+        jdk 'Java17'          
+        maven 'Maven-home'    
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 echo 'Pulling from Github'
-                git branch: 'main', credentialsId: 'mygithubcred', url: 'https://github.com/aravindwip/wipjen.git'
+                git branch: 'main', credentialsId: 'Git-Cred', url: 'https://github.com/aravindwip/sprjen.git'
             }
         }
 
@@ -29,8 +29,7 @@ pipeline {
 
         stage('Build Project') {
             steps {
-                echo 'Building Spring Boot project'
-                // package with Spring Boot plugin so JAR is executable
+                echo 'Building Spring Boot project'                
                 bat 'mvn clean package -DskipTests spring-boot:repackage'
             }
         }
@@ -58,7 +57,7 @@ pipeline {
             echo 'Build and Run SUCCESSFUL! Access app at http://localhost:8080/hello'
         }
         failure {
-            echo 'OOPS!!! Build or Run failed.'
+            echo 'OOPS!!! Build or Run failed'
         }
     }
 }
